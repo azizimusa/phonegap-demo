@@ -1,0 +1,397 @@
+<html ng-app="ionicApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    
+    <title>Ionic Phonegap Demo</title>
+
+    <link href="lib/css/ionic.min.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+    <script src="lib/js/ionic.bundle.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script> 
+    <script>
+	document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        navigator.splashscreen.hide();
+    }
+	</script>  	
+	<script src="js/page.js"></script>	
+	<script src="js/currentLocation.js"></script>
+	<script src="js/camera.js"></script>
+	<script src="js/captureAudio.js"></script>
+	<script src="js/compass.js"></script>
+	<script src="js/connection.js"></script>
+	<script src="js/createcontact.js"></script>
+	<script src="js/device.js"></script>
+	<script src="js/battery.js"></script>
+	<script src="js/file.js"></script>
+	<script src="js/tulis.js"></script>
+	<script src="js/geolocation.js"></script>
+	<script src="js/globalization.js"></script>
+	<script src="js/inappbrowser.js"></script>
+	<script src="js/media.js"></script>
+	<script src="js/notification.js"></script>
+	<script src="js/localstorage.js"></script>
+	<script src="js/websql.js"></script>
+	
+  </head>
+
+  <body>
+    
+    <ion-nav-bar animation="nav-title-slide-ios7" 
+             type="bar-positive" 
+             back-button-type="button-icon" 
+             back-button-icon="ion-arrow-left-c"></ion-nav-bar>
+             
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+
+
+    <script id="tabs.html" type="text/ng-template">
+      <ion-tabs tabs-style="tabs-icon-top" tabs-type="tabs-positive">
+
+        <ion-tab title="Home" icon="ion-home" href="#/tab/home">
+          <ion-nav-view name="home-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="About" icon="ion-ios7-information" href="#/tab/about">
+          <ion-nav-view name="about-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="Contact" icon="ion-ios7-world" ui-sref="tabs.contact">
+          <ion-nav-view name="contact-tab"></ion-nav-view>
+        </ion-tab>
+
+      </ion-tabs>
+    </script>
+
+    <script id="home.html" type="text/ng-template">
+      <ion-view title="'ionic phonegap mega demo'">
+        <ion-content has-header="true" padding="true">
+          <p>Example of ionic framework with phonegap api.</p>		  
+          <div class="list">
+		  <a class="item item-icon-left" href="#/tab/accelerometer">
+			<i class="icon ion-arrow-expand"></i>
+			Accelerometer
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/camera">
+			<i class="icon ion-camera"></i>
+			Camera
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/capture">
+			<i class="icon ion-link"></i>
+			Capture Media
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/compass">
+			<i class="icon ion-compass"></i>
+			Compass
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/connection">
+			<i class="icon ion-wifi"></i>
+			Connection
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/contacts">
+			<i class="icon ion-android-social"></i>
+			Contacts
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/device">
+			<i class="icon ion-iphone"></i>
+			Device Properties
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/battery">
+			<i class="icon ion-battery-half"></i>
+			Battery Status
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/location">
+			<i class="icon ion-ios7-location"></i>
+			Geolocation
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/file">
+			<i class="icon ion-document-text"></i>
+			File
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/globalization">
+			<i class="icon ion-earth"></i>
+			Globalization
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/browser">
+			<i class="icon ion-ios7-browsers"></i>
+			In App Browser
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/media">
+			<i class="icon ion-ios7-musical-notes"></i>
+			Media
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/notification">
+			<i class="icon ion-alert"></i>
+			Notification
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/storage">
+			<i class="icon ion-android-storage"></i>
+			Storage
+		  </a>
+		  </div>
+		  <br /><br />
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="accelerometer.html" type="text/ng-template">
+      <ion-view title="'Accelerometer'">
+        <ion-content has-header="true" padding="true"> 
+			<div class="list">
+			  <label class="item item-input item-stacked-label">
+			    <button class="button button-block button-energized" onclick="gelak(); return false;">Start Tracking</button>
+				<span class="input-label">Accelerometer Tracking</span>
+				<p id="getAccelerate"></p>
+				<button class="button button-block button-energized" onclick="stopgelak(); return false;">Stop Tracking</button>
+			 </label>
+			</div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="camera.html" type="text/ng-template">
+      <ion-view title="'Camera'">
+        <ion-content has-header="true" padding="true"> 
+		  <button class="button button-block button-energized" onclick="capturePhoto();">Capture Photo</button>
+		  <img style="display:none;width:100%;height:auto;" id="smallImage" src="" />          
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="capture.html" type="text/ng-template">
+      <ion-view title="'Capture'">
+        <ion-content has-header="true" padding="true"> 
+		<button class="button button-block button-energized" onclick="captureAudio();">Capture Audio</button>
+		<button class="button button-block button-energized" onclick="captureImage();">Capture Image</button>
+		<button class="button button-block button-energized" onclick="captureVideo();">Capture Video</button>
+		  <p id="capture-result"></p>        
+		  <p id="format-data"></p>		 
+        </ion-content>	
+      </ion-view>
+    </script>
+	
+	<script id="compass.html" type="text/ng-template">
+      <ion-view title="'Compass'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">
+			  <label class="item item-input item-stacked-label">
+			  <button class="button button-block button-energized" onclick="helah();">Start Compass</button>
+				<br />
+				<p id="heading"></p>
+				<button class="button button-block button-energized" id="getCompass" onclick="stophelah();">Stop Compass</button>
+			 </label>
+			</div>        
+        </ion-content>
+      </ion-view>
+    </script>
+	<script id="connection.html" type="text/ng-template">
+      <ion-view title="'Connection'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">
+			  <label class="item item-input item-stacked-label">
+			  <button class="button button-block button-energized" onclick="checkConnection();">Get Connection</button>
+				<br />
+				<p id="getConnection"></p>				
+			 </label>
+			</div>        
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="contacts.html" type="text/ng-template">
+      <ion-view title="'Contacts'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">
+			  <p>This will create 1 entry into your device's contact</p>
+			  <label class="item item-input item-stacked-label">
+				<span class="input-label">First Name</span>
+				<input type="text" id="fname">
+			  </label>			  
+			  <button class="button button-block button-energized" onclick="createcontact();">Create</button>
+			  <button class="button button-block button-energized" onclick="findcontacts();">Find</button>
+		</div>  	
+		<p id="findcontact"></p>
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="device.html" type="text/ng-template">
+      <ion-view title="'Device Properties'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">			  
+			  <button class="button button-block button-energized" onclick="infoDevice()">Read Device Properties</button>
+			  <p id="deviceProperties"></p>
+		</div>  			
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="battery.html" type="text/ng-template">
+      <ion-view title="'Battery Status'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">			  
+			  <button class="button button-block button-energized" id="getBat" onclick="onbattery(); return false;">Get Battery Status</button>			  
+			  <p id="batlog"></p>
+			  <p id="log2"></p>
+			  <p id="getbatstatus"></p>
+			  <button class="button button-block button-energized" onclick="getAgainStatus();">Get Battery Status</button>
+		</div>  			
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="location.html" type="text/ng-template">
+      <ion-view title="'Geolocation'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">			  
+			  <button class="button button-block button-energized" onclick="getgeolocation();">Get Location</button>
+			  <button class="button button-block button-energized" onclick="watchgeo();">Watch Location</button>
+			  <p id="displaylocation">You need to enable GPS in order to use this API.</p>
+			  <p id="watchlivegeo"></p>
+		</div>  			
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="file.html" type="text/ng-template">
+      <ion-view title="'File'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">
+			<div class="item item-input-inset">
+    <label class="item-input-wrapper">
+      <input type="text" placeholder="Write something here" id="wfile">
+    </label>
+    <button class="button button-small" onclick="tulis();">
+      Submit
+    </button>
+  </div>
+			  <button class="button button-block button-energized" onclick="kalio()">Get File Info</button>
+			  
+			  
+		</div>  			
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="globalization.html" type="text/ng-template">
+      <ion-view title="'Globalization'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">			  
+			  <button class="button button-block button-energized" onclick="checkLanguage()">Get Language Info</button>
+			  <p id="global"></p>
+		</div>  			
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="browser.html" type="text/ng-template">
+      <ion-view title="'In App Browser'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">			
+			  <p>You won't be able to 'back' to this page once you click the button. Press 'home' menu instead</p>
+			  <button class="button button-block button-energized" onclick="inapp()">Launch Browser</button>
+			  <p id="global"></p>
+		</div>  			
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="media.html" type="text/ng-template">
+      <ion-view title="'Media'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">			  
+			 <div class="button-bar bar-light">			  
+			  <a class="button" onclick="recordAudio();"><i class="icon red ion-record"></i></a>
+			  <a class="button" onclick="playMedia();"><i class="icon green ion-play"></i></a>
+			  <a class="button" onclick="stopAll();"><i class="icon red ion-stop"></i></a>
+			 </div>
+			 <p id="record_position"></p>
+			  <p id="audio_position"></p>
+			  
+		</div>  			
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="notification.html" type="text/ng-template">
+      <ion-view title="'Notification'">
+        <ion-content has-header="true" padding="true"> 
+		  <div class="list">			  
+			  <button class="button button-block button-energized" onclick="showAlert(); return false;">Show Alert</button>
+			  <button class="button button-block button-energized" onclick="showConfirm(); return false;">Show Confirm</button>			  
+			  <button class="button button-block button-energized" onclick="playBeep(); return false;">Play Beep</button>
+			  <button class="button button-block button-energized" onclick="vibrate(); return false;">Vibrate</button>
+			  <p id="global"></p>
+		</div>  			
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="storage.html" type="text/ng-template">
+      <ion-view title="'Storage'">
+        <ion-content has-header="true" padding="true"> 
+		<div class="list">
+		  <a class="item item-icon-left" href="#/tab/localstorage">
+			<i class="icon ion-android-folder"></i>
+			Local Storage
+		  </a>
+		  <a class="item item-icon-left" href="#/tab/websql">
+			<i class="icon ion-ios7-briefcase"></i>
+			Web SQL
+		  </a>
+		</div>		  			
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="localstorage.html" type="text/ng-template">
+      <ion-view title="'Local Storage'">
+        <ion-content has-header="true" padding="true"> 		
+		  <div class="list">			  
+			  <button class="button button-block button-energized" onclick="clickCountLS();">Run Local Storage</button>			  
+			  <p id="result"></p><br />
+			  <p id="note1"></p>
+			  <button class="button button-block button-energized" onclick="clickCountSS();">Run Session Storage</button>			  
+			  <p id="resultSS"></p><br />
+			  <p id="note2"></p>
+		</div>  			
+        </ion-content>
+      </ion-view>
+    </script>
+	
+	<script id="websql.html" type="text/ng-template">
+      <ion-view title="'Web SQL'">
+        <ion-content has-header="true" padding="true"> 		
+		  <div class="list">			  
+			  <button class="button button-block button-energized" onclick="gowebsql();">Create DB</button>			  
+			  <p id="statusdb"></p><br />			  
+			  <button class="button button-block button-energized" onclick="querydb();">Get SQL Result Set</button>			  
+			  <p id="statusquery"></p><br />			  
+		</div>  			
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="about.html" type="text/ng-template">
+      <ion-view title="'About'">
+        <ion-content has-header="true" padding="true">          
+          <p>Built with ionic framework and phonegap API.</p> 
+		  <p>Some of the plugin in this demo I couldn't make it work. If you know how to make it work, and want to contribute, email me at azizimusa@azizi2u.com</p>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="contact.html" type="text/ng-template">
+      <ion-view title="'Contact'">
+        <ion-content has-header="true" padding="true">
+          <p>Will be added from time to time</p>          
+        </ion-content>
+      </ion-view>
+    </script>
+
+  </body>
+</html>
